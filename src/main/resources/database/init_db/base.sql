@@ -27,6 +27,7 @@ create table contrats(
     idcontrat serial primary key,
     idequipe int references equipes (idequipe) not null,
     idjoueur int references joueurs (idjoueur) not null,
+    numero int not null check ( numero > 0 ),
     debut timestamp not null,
     fin timestamp not null
 );
@@ -51,7 +52,7 @@ create table type_actions(
     nom varchar(100) not null
 );
 
-create table action(
+create table actions(
     idaction serial primary key,
     idtype int references type_actions (idtype_action) not null,
     idjoueur int references joueurs (idjoueur) not null,

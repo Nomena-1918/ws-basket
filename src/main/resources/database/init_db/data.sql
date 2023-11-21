@@ -4,9 +4,9 @@ VALUES ('Saison 2023', '2023-01-01', '2023-12-31'),
 
 
 INSERT INTO equipes (nom, acronyme)
-VALUES ('Équipe 1', 'E1'),
-       ('Équipe 2', 'E2');
-
+VALUES
+    ('Lions', 'LIO'),
+    ('Faucons', 'FAU');
 
 INSERT INTO saison_equipes (idsaison, idequipe)
 VALUES (1, 1),
@@ -16,39 +16,40 @@ VALUES (1, 1),
 
 
 INSERT INTO joueurs (nom, prenom)
-VALUES ('Joueur', '1'),
-       ('Joueur', '2'),
-       ('Joueur', '3'),
-       ('Joueur', '4'),
-       ('Joueur', '5'),
-       ('Joueur', '6'),
-       ('Joueur', '7'),
-       ('Joueur', '8'),
-       ('Joueur', '9'),
-       ('Joueur', '10'),
-       ('Joueur', '11'),
-       ('Joueur', '12');
+VALUES
+    ('Johnson', 'Michael'),
+    ('Smith', 'Christopher'),
+    ('Williams', 'Anthony'),
+    ('Jones', 'Andrew'),
+    ('Davis', 'Brandon'),
+    ('Miller', 'Jordan'),
+    ('Brown', 'Marcus'),
+    ('Taylor', 'Derrick'),
+    ('Wilson', 'Jeremy'),
+    ('Moore', 'Kevin'),
+    ('Anderson', 'Tyler'),
+    ('Jackson', 'Kyle');
 
 
-INSERT INTO contrats (idequipe, idjoueur, debut, fin)
-VALUES (1, 1, '2023-01-01', '2023-12-31'),
-       (1, 2, '2023-01-01', '2023-12-31'),
-       (1, 3, '2023-01-01', '2023-12-31'),
-       (1, 4, '2023-01-01', '2023-12-31'),
-       (1, 5, '2023-01-01', '2023-12-31'),
-       (1, 6, '2023-01-01', '2023-12-31'),
-       (2, 7, '2023-01-01', '2023-12-31'),
-       (2, 8, '2023-01-01', '2023-12-31'),
-       (2, 9, '2023-01-01', '2023-12-31'),
-       (2, 10, '2023-01-01', '2023-12-31'),
-       (2, 11, '2023-01-01', '2023-12-31'),
-       (2, 12, '2023-01-01', '2023-12-31');
+INSERT INTO contrats (idequipe, idjoueur, numero, debut, fin)
+VALUES (1, 1, 1, '2023-01-01', '2023-12-31'),
+       (1, 2, 2, '2023-01-01', '2023-12-31'),
+       (1, 3, 3, '2023-01-01', '2023-12-31'),
+       (1, 4, 3, '2023-01-01', '2023-12-31'),
+       (1, 5, 3, '2023-01-01', '2023-12-31'),
+       (1, 6, 3, '2023-01-01', '2023-12-31'),
+       (2, 7, 3, '2023-01-01', '2023-12-31'),
+       (2, 8, 3, '2023-01-01', '2023-12-31'),
+       (2, 9, 3, '2023-01-01', '2023-12-31'),
+       (2, 10, 3, '2023-01-01', '2023-12-31'),
+       (2, 11, 3, '2023-01-01', '2023-12-31'),
+       (2, 12, 3, '2023-01-01', '2023-12-31');
 
 
 INSERT INTO stades (nom)
-VALUES ('Stade 1'),
-       ('Stade 2');
-
+VALUES
+    ('Stade Olympique'),
+    ('Stade des Lumières');
 
 INSERT INTO matchs (idsaison, idstade, idequipe1, idequipe2, debut, fin)
 VALUES (1, 1, 1, 2, '2023-01-01 14:00:00', '2023-01-01 16:00:00'),
@@ -105,7 +106,7 @@ VALUES ('3P'),
        ('STL'),
        ('BLK');
 
-INSERT INTO action (idtype, idjoueur, idmatch, dateheure, valeur)
+INSERT INTO actions (idtype, idjoueur, idmatch, dateheure, valeur)
 VALUES
     -- Les 3P
     (1, 1, 1, '2023-01-01 14:00:00', 3),
