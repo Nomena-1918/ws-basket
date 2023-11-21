@@ -1,175 +1,152 @@
--- Insertion des données pour la table code_comptable
-INSERT INTO code_comptable (code)
-VALUES ('AR1'), ('AR2'), ('AL1');
-
--- Insertion des données pour la table methode_sortie
-INSERT INTO methode_sortie (nom, description)
-VALUES ('FIFO', 'ASC'), ('LIFO', 'DESC');
-
--- Insertion des données pour la table unite
-INSERT INTO unite (nom)
-VALUES ('kg'), ('litre');
-
--- Insertion des données pour la table magasin
-INSERT INTO magasin (nom)
-VALUES ('Magasin 1'), ('Magasin 2'), ('Magasin 3');
-
--- Insertion des données pour la table article
-INSERT INTO article (nom, idMethodeSortie, idUnite, idCodeComptable)
-VALUES ('Riz blanc', 1, 1, 1), ('Riz rouge', 2, 1, 2), ('Lait', 1, 2, 3);
+INSERT INTO saisons (libelle, debut, fin)
+VALUES ('Saison 2023', '2023-01-01', '2023-12-31'),
+       ('Saison 2024', '2024-01-01', '2024-12-31');
 
 
-SELECT a.*
-FROM article a
-         JOIN code_comptable c ON a.idCodeComptable = c.id
-WHERE c.code LIKE :code || '%' or c.code = :code;
+INSERT INTO equipes (nom, acronyme)
+VALUES ('Équipe 1', 'E1'),
+       ('Équipe 2', 'E2');
 
 
+INSERT INTO saison_equipes (idsaison, idequipe)
+VALUES (1, 1),
+       (1, 2),
+       (2, 1),
+       (2, 2);
 
--- Insertion des données pour la table entree_stock
-INSERT INTO entree_stock (idArticle, idMagasin, prix_unitaire, quantite, date_entree_stock)
+
+INSERT INTO joueurs (nom, prenom)
+VALUES ('Joueur', '1'),
+       ('Joueur', '2'),
+       ('Joueur', '3'),
+       ('Joueur', '4'),
+       ('Joueur', '5'),
+       ('Joueur', '6'),
+       ('Joueur', '7'),
+       ('Joueur', '8'),
+       ('Joueur', '9'),
+       ('Joueur', '10'),
+       ('Joueur', '11'),
+       ('Joueur', '12');
+
+
+INSERT INTO contrats (idequipe, idjoueur, debut, fin)
+VALUES (1, 1, '2023-01-01', '2023-12-31'),
+       (1, 2, '2023-01-01', '2023-12-31'),
+       (1, 3, '2023-01-01', '2023-12-31'),
+       (1, 4, '2023-01-01', '2023-12-31'),
+       (1, 5, '2023-01-01', '2023-12-31'),
+       (1, 6, '2023-01-01', '2023-12-31'),
+       (2, 7, '2023-01-01', '2023-12-31'),
+       (2, 8, '2023-01-01', '2023-12-31'),
+       (2, 9, '2023-01-01', '2023-12-31'),
+       (2, 10, '2023-01-01', '2023-12-31'),
+       (2, 11, '2023-01-01', '2023-12-31'),
+       (2, 12, '2023-01-01', '2023-12-31');
+
+
+INSERT INTO stades (nom)
+VALUES ('Stade 1'),
+       ('Stade 2');
+
+
+INSERT INTO matchs (idsaison, idstade, idequipe1, idequipe2, debut, fin)
+VALUES (1, 1, 1, 2, '2023-01-01 14:00:00', '2023-01-01 16:00:00'),
+       (1, 2, 2, 1, '2023-01-02 14:00:00', '2023-01-02 16:00:00');
+
+
+INSERT INTO type_mouvements (nom)
+VALUES ('entree'),
+       ('sortie');
+
+
+INSERT INTO mouvements (idmatch, idtype, idjoueur, dateheure)
 VALUES
-    (1, 1, 2000, 10, '2023-01-01 00:00:00'),
-    (1, 1, 2500, 20, '2023-01-02 00:01:00'),
+    --  EQUIPE 1
+    -- Entrées sur terrains
+    (1, 1, 1, '2023-01-01 14:00:00'),
+    (1, 1, 2, '2023-01-01 14:00:00'),
+    (1, 1, 3, '2023-01-01 14:00:00'),
+    (1, 1, 4, '2023-01-01 14:00:00'),
+    (1, 1, 5, '2023-01-01 14:00:00'),
 
-    (2, 2, 5000, 30, '2023-02-02 00:10:00'),
-    (2, 2, 5400, 9, '2023-02-03 00:01:00'),
 
-    (3, 3, 900, 30, '2023-03-01 00:00:00'),
-    (3, 3, 1000, 7, '2023-03-04 00:01:00');
+    -- Sorties terrains
+    (1, 2, 1, '2023-01-01 16:00:00'),
+    (1, 2, 2, '2023-01-01 16:00:00'),
+    (1, 2, 3, '2023-01-01 16:00:00'),
+    (1, 2, 4, '2023-01-01 16:00:00'),
+    (1, 2, 5, '2023-01-01 16:00:00'),
 
--- Insertion des données pour la table sortie_stock
-INSERT INTO sortie_stock (idEntreeStock, quantite, date_sortie_stock)
+
+    --  EQUIPE 2
+    -- Entrées sur terrains
+    (1, 1, 7, '2023-01-01 14:00:00'),
+    (1, 1, 8, '2023-01-01 14:00:00'),
+    (1, 1, 9, '2023-01-01 14:00:00'),
+    (1, 1, 10, '2023-01-01 14:00:00'),
+    (1, 1, 11, '2023-01-01 14:00:00'),
+
+
+    -- Sorties terrains
+    (1, 2, 7, '2023-01-01 16:00:00'),
+    (1, 2, 8, '2023-01-01 16:00:00'),
+    (1, 2, 9, '2023-01-01 16:00:00'),
+    (1, 2, 10, '2023-01-01 16:00:00'),
+    (1, 2, 11, '2023-01-01 16:00:00');
+
+INSERT INTO type_actions (nom)
+VALUES ('3P'),
+       ('FG'),
+       ('LF'),
+       ('REBOND'),
+       ('PD'),
+       ('TO'),
+       ('STL'),
+       ('BLK');
+
+INSERT INTO action (idtype, idjoueur, idmatch, dateheure, valeur)
 VALUES
-    (1, 5, '2023-01-05 00:00:00'), -- Sortie de 5 articles de l'entrée 1
-    (1, 3, '2023-01-06 00:00:00'), -- Sortie de 3 articles de l'entrée 1
-    (2, 10, '2023-02-05 00:00:00'), -- Sortie de 10 articles de l'entrée 2
-    (3, 30, '2023-03-02 00:00:00'); -- Sortie de 30 articles de l'entrée 3
+    -- Les 3P
+    (1, 1, 1, '2023-01-01 14:00:00', 3),
+    (1, 2, 1, '2023-01-01 14:01:00', 0),
+    (1, 3, 1, '2023-01-01 14:30:00', 3),
 
---truncate entree_stock, sortie_stock restart identity cascade;
+    -- Les Field Goals
+    (2, 4, 1, '2023-01-01 14:35:00', 2),
+    (2, 5, 1, '2023-01-01 14:40:00', 0),
+    (2, 7, 1, '2023-01-01 14:45:00', 2),
 
---===============================================
--- Requête pour connaître quelles entrées de stock pour quelle quantité à sortir du stock
--- Avec les restes
-SELECT
-    es.id,
-    es.idArticle,
-    es.idMagasin,
-    es.prix_unitaire,
-    es.quantite_restante as quantite,
-    es.date_entree_stock
-FROM (
-         SELECT
-             es.id,
-             es.idArticle,
-             es.idMagasin,
-             es.prix_unitaire,
-             es.quantite,
-             es.date_entree_stock,
-             es.quantite - COALESCE(ss.quantite_sortie, 0) as quantite_restante,
-             SUM(es.quantite - COALESCE(ss.quantite_sortie, 0)) OVER (ORDER BY es.date_entree_stock desc) as quantite_cumulative
-         FROM
-             entree_stock es
-                 LEFT JOIN
-             (SELECT idEntreeStock, SUM(quantite) as quantite_sortie
-              FROM sortie_stock
-              GROUP BY idEntreeStock) ss
-             ON
-                 es.id = ss.idEntreeStock
-         WHERE
-                 es.idArticle = 2
-           AND es.idMagasin = 2
-         ORDER BY
-             es.date_entree_stock desc
-     ) as es
-WHERE (quantite_restante > 0) and (quantite_cumulative < 12 OR (quantite_cumulative - quantite_restante) < 12);
+    -- Les Lancers Francs
+    (3, 8, 1, '2023-01-01 15:00:00', 1),
+    (3, 9, 1, '2023-01-01 15:05:00', 0),
+    (3, 10, 1, '2023-01-01 15:10:00', 1),
 
--- Quand c'est FIFO ASC
--- Quand c'est LIFO DESC
---===============================================
+    -- Les Rebonds
+    (4, 11, 1, '2023-01-01 15:20:00', 1),
+    (4, 1, 1, '2023-01-01 15:30:00', 1),
+    (4, 2, 1, '2023-01-01 15:35:00', 1),
 
+    -- Les Passes décisives
+    (5, 3, 1, '2023-01-01 15:40:00', 1),
+    (5, 4, 1, '2023-01-01 15:41:00', 1),
+    (5, 5, 1, '2023-01-01 15:42:00', 1),
 
---===============================================
--- Toutes les entrées de stock à une date donnée
-select e.idarticle, e.idmagasin, sum(e.quantite) as quantite_entrees, sum(e.prix_unitaire * e.quantite) as montant_entrees_stock
-from entree_stock e
-where
-    date_entree_stock <= now() and
-    idarticle = 1 and
-    idmagasin = 1
-group by e.idarticle, e.idmagasin;
+    -- Les Turn Overs
+    (6, 7, 1, '2023-01-01 15:43:00', 1),
+    (6, 8, 1, '2023-01-01 15:44:00', 1),
+    (6, 9, 1, '2023-01-01 15:45:00', 1),
 
--- Toutes les sorties de stock à une date donnée
-select e.idarticle, e.idmagasin, sum(s.quantite) as quantite_sorties, sum(e.prix_unitaire * s.quantite) as montant_sorties_stock
-from sortie_stock s
-join entree_stock e on s.idEntreeStock = e.id
-where
-    s.date_sortie_stock <= now() and
-    e.idarticle = 1 and
-    e.idmagasin = 1
-group by e.idarticle, e.idmagasin;
+    -- Les Steals
+    (7, 10, 1, '2023-01-01 15:46:00', 1),
+    (7, 11, 1, '2023-01-01 15:47:00', 1),
+    (7, 1, 1, '2023-01-01 15:48:00', 1),
 
-
--- L'état de stock (entrées - sorties) à une date donnée
-SELECT
-    1 as id,
-    entrees.idMagasin,
-    entrees.entrees_idArticle as idArticle,
-    (entrees.montant_entrees_stock - COALESCE(sorties.montant_sorties_stock, 0)) / (entrees.quantite_entrees - COALESCE(sorties.quantite_sorties, 0)) AS prix_unitaire,
-    entrees.quantite_entrees - COALESCE(sorties.quantite_sorties, 0) AS quantite,
-    '2023-11-12 15:51:47.842263 +00:00'
-FROM
-    (
-        select entrees.idarticle as entrees_idArticle, entrees.idmagasin, sum(entrees.quantite) as quantite_entrees, sum(entrees.prix_unitaire * entrees.quantite) as montant_entrees_stock
-        from entree_stock entrees
-        where
-                date_entree_stock <= '2023-11-12 15:51:47.842263 +00:00' and
-                entrees.idarticle = 1 and
-                entrees.idmagasin = 1
-        group by entrees.idarticle, entrees.idmagasin
-    ) AS entrees
-
-        LEFT JOIN
-    (
-        select e.idarticle as sorties_idArticle, e.idmagasin, sum(s.quantite) as quantite_sorties, sum(e.prix_unitaire * s.quantite) as montant_sorties_stock
-        from sortie_stock s
-                 join entree_stock e on s.idEntreeStock = e.id
-        where
-                s.date_sortie_stock <= '2023-11-12 15:51:47.842263 +00:00' and
-                e.idarticle = 1 and
-                e.idmagasin = 1
-        group by e.idarticle, e.idmagasin
-    ) AS sorties
-    ON entrees.entrees_idArticle = sorties.sorties_idArticle AND entrees.idMagasin = sorties.idMagasin;
+    -- Les Blocks
+    (8, 2, 1, '2023-01-01 15:49:00', 1),
+    (8, 3, 1, '2023-01-01 15:50:00', 1),
+    (8, 4, 1, '2023-01-01 15:55:00', 1);
 
 
 
-SELECT
-    1 as id,
-    entrees.idMagasin,
-    entrees.entrees_idArticle as idArticle,
-    COALESCE(((entrees.montant_entrees_stock - COALESCE(sorties.montant_sorties_stock, 0)) / NULLIF((entrees.quantite_entrees - COALESCE(sorties.quantite_sorties, 0)), 0)), 0) AS prix_unitaire,
-    entrees.quantite_entrees - COALESCE(sorties.quantite_sorties, 0) AS quantite,
-    :date_etat_stock as date_entree_stock
-FROM
-    (
-        select entrees.idarticle as entrees_idArticle, entrees.idmagasin, sum(entrees.quantite) as quantite_entrees, sum(entrees.prix_unitaire * entrees.quantite) as montant_entrees_stock
-        from entree_stock entrees
-        where
-                date_entree_stock <= :date_etat_stock and
-                entrees.idarticle = :idarticle_sortant and
-                entrees.idmagasin = :idmagasin_sortant
-        group by entrees.idarticle, entrees.idmagasin
-    ) AS entrees
-        LEFT JOIN
-    (
-        select e.idarticle as sorties_idArticle, e.idmagasin, sum(s.quantite) as quantite_sorties, sum(e.prix_unitaire * s.quantite) as montant_sorties_stock
-        from sortie_stock s
-                 join entree_stock e on s.idEntreeStock = e.id
-        where
-                s.date_sortie_stock <= :date_etat_stock and
-                e.idarticle = :idarticle_sortant and
-                e.idmagasin = :idmagasin_sortant
-        group by e.idarticle, e.idmagasin
-    ) AS sorties
-    ON entrees.entrees_idArticle = sorties.sorties_idArticle AND entrees.idMagasin = sorties.idMagasin
+

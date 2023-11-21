@@ -1,4 +1,5 @@
 -- Réinitialisation des séquences et suppression des données
-TRUNCATE sortie_stock, entree_stock, article, magasin, methode_sortie, unite RESTART IDENTITY;
+TRUNCATE mouvements, type_mouvements, action, type_actions, matchs, stades,  contrats, joueurs, saison_equipes, equipes, saisons RESTART IDENTITY;
 
-TRUNCATE sortie_stock, entree_stock restart identity cascade;
+-- Restart matchs d'une saison
+TRUNCATE action restart identity cascade;

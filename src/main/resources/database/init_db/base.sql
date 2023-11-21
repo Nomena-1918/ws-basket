@@ -11,20 +11,17 @@ create table equipes(
     acronyme varchar(10)
 );
 
-
 create table saison_equipes(
     idsaisonequipe serial primary key,
     idsaison int references saisons (idsaison) not null,
     idequipe int references equipes (idequipe) not null
 );
 
-
 create table joueurs(
     idjoueur serial primary key,
     nom varchar(100) not null,
     prenom varchar(100) not null
 );
-
 
 create table contrats(
     idcontrat serial primary key,
@@ -34,12 +31,10 @@ create table contrats(
     fin timestamp not null
 );
 
-
 create table stades(
     idstade serial primary key,
     nom varchar(100)
 );
-
 
 create table matchs(
     idmatch serial primary key,
@@ -51,12 +46,10 @@ create table matchs(
     fin timestamp not null
 );
 
-
 create table type_actions(
     idtype_action serial primary key,
     nom varchar(100) not null
 );
-
 
 create table action(
     idaction serial primary key,
@@ -65,4 +58,17 @@ create table action(
     idmatch int references matchs (idmatch) not null,
     dateheure timestamp not null,
     valeur int not null
+);
+
+create table type_mouvements(
+    idtype_mouvement serial primary key,
+    nom varchar(100) not null
+);
+
+create table mouvements(
+    idmouvement serial primary key,
+    idmatch int references matchs (idmatch) not null,
+    idtype int references type_mouvements (idtype_mouvement) not null,
+    idjoueur int references joueurs (idjoueur) not null,
+    dateheure timestamp not null
 );
