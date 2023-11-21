@@ -201,7 +201,8 @@ select * from mouvements where idtype = 2 order by dateheure;
 create or replace view minutes_jouees as
 select sum(EXTRACT(EPOCH FROM (v_sorties_joueur.dateheure - v_entrees_joueur.dateheure)))/60 as minutes_jouee, v_entrees_joueur.idjoueur from v_entrees_joueur join v_sorties_joueur on  v_entrees_joueur.idjoueur = v_sorties_joueur.idjoueur group by v_entrees_joueur.idjoueur;
 
+select minutes_jouees.minutes_jouee/(select count(*) from v_matchs_joues where idjoueur = 1) as minutes_jouees_moyen from minutes_jouees where idjoueur = 1;
 
-select */ from minutes_jouees where idjoueur = 1;
+
 
 
