@@ -15,7 +15,7 @@ public interface JoueurRepository extends JpaRepository<Joueur, Long> {
     List<Joueur> findByEquipeIdAndDate(Long equipeId, LocalDateTime dateActuel);
 
 
-    @Query(value="select distinctcount(*) from v_matchs_joues where idjoueur=:id", nativeQuery = true)
+    @Query(value="select distinct count(*) from v_matchs_joues where idjoueur=:id", nativeQuery = true)
     int getMatchJoueur(Long id);
 
 
