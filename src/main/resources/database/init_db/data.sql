@@ -201,7 +201,38 @@ select * from mouvements where idtype = 2 order by dateheure;
 create or replace view minutes_jouees as
 select sum(EXTRACT(EPOCH FROM (v_sorties_joueur.dateheure - v_entrees_joueur.dateheure)))/60 as minutes_jouee, v_entrees_joueur.idjoueur from v_entrees_joueur join v_sorties_joueur on  v_entrees_joueur.idjoueur = v_sorties_joueur.idjoueur group by v_entrees_joueur.idjoueur;
 
+select minutes_jouee/(select count(*) from v_matchs_joues where idjoueur = 1) AS minute_jouee_par_match from minutes_jouees where idjoueur = 1;
 
-select */ from minutes_jouees where idjoueur = 1;
+-- EFFICACITE
+SELECT (select sum(valeur) from actions where idjoueur = 1) + (select count(*) from actions where idtype = 4 and idjoueur = 1) + (select count(*) from actions where idtype = 5 and idjoueur = 1) + (select count(*) from actions where idtype = 7 and idjoueur = 1) + (select count(*) from actions where idtype = 8 and idjoueur = 1) - (select count(*) from actions where idtype = 2 and valeur = 0 and idjoueur = 1) - (select count(*) from actions where idtype = 1 and valeur = 0 and idjoueur = 1) - (select count(*) from actions where idtype = 6 and idjoueur = 1) AS EFF;
 
+CREATE OR REPLACE FUNCTION calculer_eff(idjoueur_param INT)
+RETURNS INT AS $$
+DECLARE
+    total_eff INT;
+BEGIN
+    SELECT
+        (SELECT COALESCE(SUM(valeur), 0) FROM actions WHERE idjoueur = idjoueur_param) +
+        (SELECT COUNT(*) FROM actions WHERE idtype = 4 AND idjoueur = idjoueur_param) +
+        (SELECT COUNT(*) FROM actions WHERE idtype = 5 AND idjoueur = idjoueur_param) +
+        (SELECT COUNT(*) FROM actions WHERE idtype = 7 AND idjoueur = idjoueur_param) +
+        (SELECT COUNT(*) FROM actions WHERE idtype = 8 AND idjoueur = idjoueur_param) -
+        (SELECT COUNT(*) FROM actions WHERE idtype = 2 AND valeur = 0 AND idjoueur = idjoueur_param) -
+        (SELECT COUNT(*) FROM actions WHERE idtype = 1 AND valeur = 0 AND idjoueur = idjoueur_param) -
+        (SELECT COUNT(*) FROM actions WHERE idtype = 6 AND idjoueur = idjoueur_param)
+    INTO total_eff;
 
+    RETURN total_eff;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT calculer_eff(1) AS EFF;
+
+-- Field GOAL
+select (count(*)/(select CASE WHEN COUNT(*) = 0 THEN 1 ELSE COUNT(*) END from actions where idtype = 2 and idjoueur = 7 )) * 100 from actions where idtype = 2 and valeur = 2 and idjoueur = 7;
+
+-- %3P
+select (count(*)/(select CASE WHEN COUNT(*) = 0 THEN 1 ELSE COUNT(*) END from actions where idtype = 1 and idjoueur = 1 )) * 100 from actions where idtype = 1 and valeur = 3 and idjoueur = 1;
+
+-- %1P
+select (count(*)/(select CASE WHEN COUNT(*) = 0 THEN 1 ELSE COUNT(*) END from actions where idtype = 3 and idjoueur = 8 )) * 100 from actions where idtype = 3 and valeur = 1 and idjoueur = 8;
