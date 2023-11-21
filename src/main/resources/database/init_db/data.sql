@@ -160,8 +160,48 @@ VALUES
 -- Nbr minutes jouées par match en moyenne dans chaque saison
 
 
+-- Matchs joués par équipe
+select distinct count(idmatch) from matchs where idequipe1 = 1 or idequipe2 = 1;
+
+-- Match joués par joueur
+create view v_matchs_joues as
+select idmatch, idjoueur from mouvements group by idmatch, idjoueur;
+
+select count(*) from v_matchs_joues where idjoueur = 6;
+
+-- Points marqués par match
+select sum(valeur) from actions where idjoueur = 1;
+
+select sum(valeur)/(select count(*) from v_matchs_joues where idjoueur = 1) as points_moyens from actions where idjoueur = 1;
+
+-- Rebonds moyens par match
+select count(*) from actions where idtype = 4 and idjoueur = 1;
+
+select count(*)/(select count(*) from v_matchs_joues where idjoueur = 1) as points_moyens from actions where idtype = 4 and idjoueur = 1;
 
 
+-- Passes décisives moyennes par match
+select count(*) from actions where idtype = 5 and idjoueur = 4;
 
+select count(*)/(select count(*) from v_matchs_joues where idjoueur = 4) as points_moyens from actions where idtype = 5 and idjoueur = 4;
+
+
+-- Total minutes
+
+-- View Entrees
+create view v_entrees_joueur as
+select * from mouvements where idtype = 1 order by dateheure;
+
+-- View Sorties
+create view v_sorties_joueur as
+select * from mouvements where idtype = 2 order by dateheure;
+
+--and idjoueur = 1
+-- Minutes jouées toatles
+create or replace view minutes_jouees as
+select sum(EXTRACT(EPOCH FROM (v_sorties_joueur.dateheure - v_entrees_joueur.dateheure)))/60 as minutes_jouee, v_entrees_joueur.idjoueur from v_entrees_joueur join v_sorties_joueur on  v_entrees_joueur.idjoueur = v_sorties_joueur.idjoueur group by v_entrees_joueur.idjoueur;
+
+
+select */ from minutes_jouees where idjoueur = 1;
 
 
