@@ -1,13 +1,13 @@
 create table saisons(
     idsaison serial primary key,
-    libelle varchar(100) not null,
+    libelle varchar(100) unique not null,
     debut timestamp not null,
-    fin timestamp not null
+    fin timestamp not null check ( fin > debut )
 );
 
 create table equipes(
     idequipe serial primary key,
-    nom varchar(100),
+    nom varchar(100) unique,
     acronyme varchar(10)
 );
 
@@ -29,7 +29,7 @@ create table contrats(
     idjoueur int references joueurs (idjoueur) not null,
     numero int not null check ( numero > 0 ),
     debut timestamp not null,
-    fin timestamp not null
+    fin timestamp not null check ( fin > debut )
 );
 
 create table stades(
@@ -44,7 +44,7 @@ create table matchs(
     idequipe1 int references equipes (idequipe) not null,
     idequipe2 int references equipes (idequipe) not null,
     debut timestamp not null,
-    fin timestamp not null
+    fin timestamp not null check ( fin > debut )
 );
 
 create table type_actions(
@@ -58,7 +58,7 @@ create table actions(
     idjoueur int references joueurs (idjoueur) not null,
     idmatch int references matchs (idmatch) not null,
     dateheure timestamp not null,
-    valeur int not null
+    valeur int not null default 0
 );
 
 create table type_mouvements(
