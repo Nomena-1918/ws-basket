@@ -3,10 +3,13 @@ package org.nba.wsbasket.controllers;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.nba.wsbasket.api.StatsIonic;
 import org.nba.wsbasket.api.StatsNetlify;
 import org.nba.wsbasket.models.Equipe;
 import org.nba.wsbasket.models.Joueur;
+import org.nba.wsbasket.models.JoueurIonic;
 import org.nba.wsbasket.models.Saison;
 import org.nba.wsbasket.repositories.EquipeRepository;
 import org.nba.wsbasket.repositories.JoueurRepository;
@@ -32,7 +35,10 @@ public class StatsController {
     }
 
 
-
+    @GetMapping("/equipes/matchs-joues/{idequipe}")
+    public int getAllEquipe(@PathVariable Long idequipe) {
+        return equipeRepository.getMatchJoue(idequipe);
+    }
 
 
     @GetMapping("/equipes/matchs-joues/{idequipe}")
@@ -63,6 +69,27 @@ public class StatsController {
         }
         
         return listStats;
+    }
+
+    @GetMapping("/stats/ionic/{idjoueur}/{idequipe}")
+    public StatsIonic getStatsIonic(@PathVariable long idjoueur,@PathVariable long idequipe) {
+        StatsIonic stat;
+        Optional<Joueur> joueur = joueurRepository.findById(idjoueur);
+        Joueur j = new Joueur();
+        if(joueur.isPresent()) {
+            j = joueur.get();
+        }
+
+        Optional<Equipe> eq = equipeRepository.findById(idequipe);
+        Equipe e = new Equipe();
+        if(eq.isPresent()) {
+            e = eq.get();
+        }
+        JoueurIonic ji = new JoueurIonic(j, "0");
+            
+        stat = new StatsIonic(j.getNom(), j.getPrenom(), ji.getNumero(), j.getIdjoueur(), equipeRepository.getMatchJoue(e.getIdequipe()),joueurRepository.getMatchJoueur(j.getIdjoueur()), joueurRepository.getPointMarqueParMatch(j.getIdjoueur()), joueurRepository.getRebondsParMatch(j.getIdjoueur()), joueurRepository.getPasseDeParMatch(j.getIdjoueur()), joueurRepository.getMinuteJoues(j.getIdjoueur()), joueurRepository.calculer_eff(j.getIdjoueur()), joueurRepository.pourcentageFieldGoal(j.getIdjoueur()), joueurRepository.pourcentageThreeThrows(j.getIdjoueur()), joueurRepository.pourcentageLancerFranc(j.getIdjoueur()));
+
+        return stat;
     }
 
 

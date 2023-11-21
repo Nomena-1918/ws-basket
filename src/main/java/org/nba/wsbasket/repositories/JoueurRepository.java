@@ -2,6 +2,7 @@ package org.nba.wsbasket.repositories;
 
 
 import org.nba.wsbasket.models.Joueur;
+import org.nba.wsbasket.models.JoueurIonic;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,8 +15,10 @@ public interface JoueurRepository extends JpaRepository<Joueur, Long> {
     @Query("select c.joueur from Contrat c where c.equipe.idequipe = :equipeId and :dateActuel between c.debut and c.fin")
     List<Joueur> findByEquipeIdAndDate(Long equipeId, LocalDateTime dateActuel);
 
+    @Query("select new JoueurIonic(c.joueur, c.numero) from Contrat c where c.equipe.idequipe = :equipeId and :dateActuel between c.debut and c.fin")
+    List<JoueurIonic> findByEquipeIdAndDateIonic(Long equipeId, LocalDateTime dateActuel);
 
-    @Query(value="select distinctcount(*) from v_matchs_joues where idjoueur=:id", nativeQuery = true)
+    @Query(value="select distinct count(*) from v_matchs_joues where idjoueur=:id", nativeQuery = true)
     int getMatchJoueur(Long id);
 
 

@@ -2,6 +2,7 @@ package org.nba.wsbasket.controllers;
 
 import org.nba.wsbasket.models.Equipe;
 import org.nba.wsbasket.models.Joueur;
+import org.nba.wsbasket.models.JoueurIonic;
 import org.nba.wsbasket.models.Saison;
 import org.nba.wsbasket.repositories.EquipeRepository;
 import org.nba.wsbasket.repositories.JoueurRepository;
@@ -45,6 +46,11 @@ public class DataController {
     @GetMapping("/joueurs/equipe/{idEquipe}")
     public List<Joueur> getEquipesBySaison(@PathVariable Long idEquipe) {
         return joueurRepository.findByEquipeIdAndDate(idEquipe, LocalDateTime.now());
+    }
+
+    @GetMapping("/joueurs-ionic/equipe/{idEquipe}")
+    public List<JoueurIonic> getEquipesBySaisonIonic(@PathVariable Long idEquipe) {
+        return joueurRepository.findByEquipeIdAndDateIonic(idEquipe, LocalDateTime.now());
     }
 
 }
