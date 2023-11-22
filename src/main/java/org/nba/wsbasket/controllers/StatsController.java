@@ -55,7 +55,7 @@ public class StatsController {
             listJoueur = joueurRepository.findByEquipeIdAndDate(e.getIdequipe(), LocalDateTime.now());
 
             for (Joueur j : listJoueur) {
-                stat = new StatsNetlify(j.getNom(), j.getPrenom(), e.getAcronyme(), equipeRepository.getMatchJoue(e.getIdequipe()), joueurRepository.getMatchJoueur(j.getIdjoueur()), joueurRepository.getPointMarqueParMatch(j.getIdjoueur()), joueurRepository.getRebondsParMatch(j.getIdjoueur()), joueurRepository.getPasseDeParMatch(j.getIdjoueur()), joueurRepository.getMinuteJoues(j.getIdjoueur()), joueurRepository.calculer_eff(j.getIdjoueur()), joueurRepository.pourcentageFieldGoal(j.getIdjoueur()), joueurRepository.pourcentageThreeThrows(j.getIdjoueur()), joueurRepository.pourcentageLancerFranc(j.getIdjoueur()));
+                stat = new StatsNetlify(j.getNom(), j.getPrenom(), e.getAcronyme(), equipeRepository.getMatchJoue(e.getIdequipe()), joueurRepository.getMatchJoueur(j.getIdjoueur()), joueurRepository.getPointMarqueParMatch(j.getIdjoueur()), joueurRepository.getRebondsParMatch(j.getIdjoueur()), joueurRepository.getPasseDeParMatch(j.getIdjoueur()), joueurRepository.getMinuteJoues(j.getIdjoueur()), joueurRepository.calculer_eff(Math.toIntExact(j.getIdjoueur())), joueurRepository.pourcentageFieldGoal(j.getIdjoueur()), joueurRepository.pourcentageThreeThrows(j.getIdjoueur()), joueurRepository.pourcentageLancerFranc(j.getIdjoueur()));
 
                 listStats.add(stat);
             }

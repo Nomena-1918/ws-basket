@@ -37,7 +37,7 @@ public interface JoueurRepository extends JpaRepository<Joueur, Long> {
 
 
     @Query(value="SELECT calculer_eff(:id)", nativeQuery = true)
-    Double calculer_eff(Long id);
+    Double calculer_eff(int id);
 
 
     @Query(value="select (count(*)/(select CASE WHEN COUNT(*) = 0 THEN 1 ELSE COUNT(*) END from actions where idtype = 2 and idjoueur = :id )) * 100 from actions where idtype = 2 and valeur = 2 and idjoueur = :id", nativeQuery = true)
