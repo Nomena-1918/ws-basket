@@ -17,4 +17,5 @@ public class Joueur {
 
     @Column(name = "prenom", nullable = false)
     private String prenom;
+
 }

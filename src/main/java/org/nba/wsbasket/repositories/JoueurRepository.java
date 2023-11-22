@@ -13,4 +13,5 @@ public interface JoueurRepository extends JpaRepository<Joueur, Long> {
 
     @Query("select c.joueur from Contrat c where c.equipe.idequipe = :equipeId and :dateActuel between c.debut and c.fin")
     List<Joueur> findByEquipeIdAndDate(Long equipeId, LocalDateTime dateActuel);
+
 }
