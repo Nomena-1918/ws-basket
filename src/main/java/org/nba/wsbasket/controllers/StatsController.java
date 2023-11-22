@@ -35,9 +35,9 @@ public class StatsController {
     }
 
 
-    @GetMapping("/equipes/matchs-joues/{idequipe}")
-    public int getAllEquipe(@PathVariable Long idequipe) {
-        return equipeRepository.getMatchJoue(idequipe);
+    @GetMapping("/equipes")
+    public List<Equipe> getAllEquipe() {
+        return equipeRepository.findAll();
     }
 
 
