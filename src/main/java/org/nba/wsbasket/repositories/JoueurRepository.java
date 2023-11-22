@@ -19,20 +19,20 @@ public interface JoueurRepository extends JpaRepository<Joueur, Long> {
     int getMatchJoueur(Long id);
 
 
-    @Query(value="select sum(valeur)/(select count(*) from v_matchs_joues where idjoueur = :id) as points_moyens from actions where idjoueur = :id", nativeQuery = true)
+    @Query(value="select sum(valeur)/(select case when count(*)=0 then 1 else count(*) end from v_matchs_joues where idjoueur = :id) as points_moyens from actions where idjoueur = :id", nativeQuery = true)
     Double getPointMarqueParMatch(Long id);
 
 
-    @Query(value="select count(*)/(select count(*) from v_matchs_joues where idjoueur = :id) as points_moyens from actions where idtype = 4 and idjoueur = :id", nativeQuery = true)
+    @Query(value="select count(*)/(select case when count(*)=0 then 1 else count(*) end from v_matchs_joues where idjoueur = :id) as points_moyens from actions where idtype = 4 and idjoueur = :id", nativeQuery = true)
     Double getRebondsParMatch(Long id);
 
 
     
-    @Query(value="select count(*)/(select count(*) from v_matchs_joues where idjoueur = :id) as points_moyens from actions where idtype = 3 and idjoueur = :id", nativeQuery = true)
+    @Query(value="select count(*)/(select case when count(*)=0 then 1 else count(*) end from v_matchs_joues where idjoueur = :id) as points_moyens from actions where idtype = 3 and idjoueur = :id", nativeQuery = true)
     Double getPasseDeParMatch(Long id);
 
 
-    @Query(value="select minutes_jouee/(select count(*) from v_matchs_joues where idjoueur = :id) AS minute_jouee_par_match from minutes_jouees where idjoueur = :id", nativeQuery = true)
+    @Query(value="select minutes_jouee/(select case when count(*)=0 then 1 else count(*) end from v_matchs_joues where idjoueur = :id) AS minute_jouee_par_match from minutes_jouees where idjoueur = :id", nativeQuery = true)
     Double getMinuteJoues(Long id);
 
 

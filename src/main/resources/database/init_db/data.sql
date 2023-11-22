@@ -172,7 +172,8 @@ select count(*) from v_matchs_joues where idjoueur = 6;
 -- Points marqués par match
 select sum(valeur) from actions where idjoueur = 1;
 
-select sum(valeur)/(select count(*) from v_matchs_joues where idjoueur = 1) as points_moyens from actions where idjoueur = 1;
+--(select CASE WHEN COUNT(*) = 0 THEN 1 ELSE COUNT(*) END from actions where idtype = 2 and idjoueur = 7 )
+select sum(valeur)/(select CASE WHEN COUNT(*) = 0 THEN 1 ELSE count(*) end from v_matchs_joues where idjoueur = 1) as points_moyens from actions where idjoueur = 1;
 
 -- Rebonds moyens par match
 select count(*) from actions where idtype = 4 and idjoueur = 1;
