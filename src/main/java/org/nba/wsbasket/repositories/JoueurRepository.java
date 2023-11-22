@@ -14,7 +14,6 @@ public interface JoueurRepository extends JpaRepository<Joueur, Long> {
     @Query("select c.joueur from Contrat c where c.equipe.idequipe = :equipeId and :dateActuel between c.debut and c.fin")
     List<Joueur> findByEquipeIdAndDate(Long equipeId, LocalDateTime dateActuel);
 
-
     @Query(value="select distinct coalesce(count(*), 0) from v_matchs_joues where idjoueur=:id", nativeQuery = true)
     int getMatchJoueur(Long id);
 

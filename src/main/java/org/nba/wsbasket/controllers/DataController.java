@@ -19,7 +19,6 @@ import java.util.List;
 public class DataController {
     SaisonRepository saisonRepository;
     EquipeRepository equipeRepository;
-
     JoueurRepository joueurRepository;
 
 
