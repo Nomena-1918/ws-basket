@@ -15,20 +15,20 @@ public interface JoueurRepository extends JpaRepository<Joueur, Long> {
     List<Joueur> findByEquipeIdAndDate(Long equipeId, LocalDateTime dateActuel);
 
 
-    @Query(value="select distinct count(*) from v_matchs_joues where idjoueur=:id", nativeQuery = true)
+    @Query(value="select distinct coalesce(count(*), 0) from v_matchs_joues where idjoueur=:id", nativeQuery = true)
     int getMatchJoueur(Long id);
 
 
-    @Query(value="select sum(valeur)/(select case when count(*)=0 then 1 else count(*) end from v_matchs_joues where idjoueur = :id) as points_moyens from actions where idjoueur = :id", nativeQuery = true)
+    @Query(value="select coalesce(sum(valeur), 0)/(select case when count(*)=0 then 1 else count(*) end from v_matchs_joues where idjoueur = :id) as points_moyens from actions where idjoueur = :id", nativeQuery = true)
     Double getPointMarqueParMatch(Long id);
 
 
-    @Query(value="select count(*)/(select case when count(*)=0 then 1 else count(*) end from v_matchs_joues where idjoueur = :id) as points_moyens from actions where idtype = 4 and idjoueur = :id", nativeQuery = true)
+    @Query(value="select coalesce(count(*), 0)/(select case when count(*)=0 then 1 else count(*) end from v_matchs_joues where idjoueur = :id) as points_moyens from actions where idtype = 4 and idjoueur = :id", nativeQuery = true)
     Double getRebondsParMatch(Long id);
 
 
     
-    @Query(value="select count(*)/(select case when count(*)=0 then 1 else count(*) end from v_matchs_joues where idjoueur = :id) as points_moyens from actions where idtype = 3 and idjoueur = :id", nativeQuery = true)
+    @Query(value="select coalesce(count(*), 0)/(select case when count(*)=0 then 1 else count(*) end from v_matchs_joues where idjoueur = :id) as points_moyens from actions where idtype = 3 and idjoueur = :id", nativeQuery = true)
     Double getPasseDeParMatch(Long id);
 
 
@@ -40,15 +40,15 @@ public interface JoueurRepository extends JpaRepository<Joueur, Long> {
     Double calculer_eff(int id);
 
 
-    @Query(value="select (count(*)/(select CASE WHEN COUNT(*) = 0 THEN 1 ELSE COUNT(*) END from actions where idtype = 2 and idjoueur = :id )) * 100 from actions where idtype = 2 and valeur = 2 and idjoueur = :id", nativeQuery = true)
+    @Query(value="select (coalesce(count(*), 0)/(select CASE WHEN COUNT(*) = 0 THEN 1 ELSE COUNT(*) END from actions where idtype = 2 and idjoueur = :id )) * 100 from actions where idtype = 2 and valeur = 2 and idjoueur = :id", nativeQuery = true)
     Double pourcentageFieldGoal(Long id);
 
 
-    @Query(value="select (count(*)/(select CASE WHEN COUNT(*) = 0 THEN 1 ELSE COUNT(*) END from actions where idtype = 3 and idjoueur = :id )) * 100 from actions where idtype = 3 and valeur = 3 and idjoueur = :id", nativeQuery = true)
+    @Query(value="select (coalesce(count(*), 0)/(select CASE WHEN COUNT(*) = 0 THEN 1 ELSE COUNT(*) END from actions where idtype = 3 and idjoueur = :id )) * 100 from actions where idtype = 3 and valeur = 3 and idjoueur = :id", nativeQuery = true)
     Double pourcentageThreeThrows(Long id);
 
 
-    @Query(value="select (count(*)/(select CASE WHEN COUNT(*) = 0 THEN 1 ELSE COUNT(*) END from actions where idtype = 1 and idjoueur = :id )) * 100 from actions where idtype = 1 and valeur = 1 and idjoueur = :id", nativeQuery = true)
+    @Query(value="select (coalesce(count(*), 0)/(select CASE WHEN COUNT(*) = 0 THEN 1 ELSE COUNT(*) END from actions where idtype = 1 and idjoueur = :id )) * 100 from actions where idtype = 1 and valeur = 1 and idjoueur = :id", nativeQuery = true)
     Double pourcentageLancerFranc(Long id);
 
 
