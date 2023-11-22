@@ -35,10 +35,10 @@ public class StatsController {
     }
 
 
-    @GetMapping("/equipes")
-    public List<Equipe> getAllEquipe() {
-        return equipeRepository.findAll();
-    }
+    // @GetMapping("/equipes")
+    // public List<Equipe> getAllEquipe() {
+    //     return equipeRepository.findAll();
+    // }
 
 
     @GetMapping("/equipes/matchs-joues/{idequipe}")
