@@ -3,7 +3,7 @@ package org.nba.wsbasket.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "joueurs")
+//@Table(name = "joueurs")
 public class JoueurIonic extends Joueur {
     String numero = "0";
 

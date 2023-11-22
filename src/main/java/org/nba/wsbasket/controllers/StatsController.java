@@ -49,7 +49,7 @@ public class StatsController {
         Saison s = saisonRepository.findSaisonBetween(LocalDateTime.now());
 
         List<Equipe> listEquipes = equipeRepository.findEquipeSaison(s.getIdsaison());
-        List<Joueur> listJoueur = new ArrayList<>();
+        List<Joueur> listJoueur;
 
         StatsNetlify stat;
         for (Equipe e : listEquipes) {
