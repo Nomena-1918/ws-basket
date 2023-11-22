@@ -34,9 +34,7 @@ public class StatsController {
         this.saisonRepository = saisonRepository;
     }
 
-
-
-
+    
 
     @GetMapping("/equipes/matchs-joues/{idequipe}")
     public int getMinuteJoueeEquipe(@PathVariable Long idequipe) {
